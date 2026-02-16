@@ -7,6 +7,7 @@
 
 # include "G4VUserDetectorConstruction.hh" // Definido por el usuario
 # include "G4LogicalVolume.hh" // Volumen lógico
+# include "globals.hh" // Para usar unidades de medida
 
 class G4VPhysicalVolume; // Volumen físico
 class G4LogicalVolume; // Volumen lógico
@@ -22,9 +23,10 @@ class DetectorConstruction : public G4VUserDetectorConstruction
     private:
         // Defino los volumenes lógicos como miembros de la clase
         G4LogicalVolume* logicWorld;
-        G4LogicalVolume* logicLayer1;
-        G4LogicalVolume* logicLayer2;
-        G4LogicalVolume* logicScoringPlane; // Detector de fluencia
+        G4LogicalVolume* logicPb;
+        G4LogicalVolume* logicScoringPb; // Detector de fluencia entre el Pb y el concreto
+        G4LogicalVolume* logicConc;
+        G4LogicalVolume* logicScoringConc; // Detector de fluencia al final de la capa de concreto
     
 };
 

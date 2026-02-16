@@ -66,6 +66,6 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     logicScoringConc = new G4LogicalVolume(solidScoringConc, world_mat, "ScoringConc"); // Volumen lógico del plano de puntuación
     new G4PVPlacement(0, G4ThreeVector(0, 0, thickness1 + planeThickness/2), logicScoringConc, "ScoringConc", logicWorld, false, 0); // Colocación del plano de puntuación 
 
-    return physWorld; // Retorno del volumen físico del mundo
+    return physWorld; 
 
 }
