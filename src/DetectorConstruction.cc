@@ -41,7 +41,17 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     G4VPhysicalVolume* physWorld = new G4PVPlacement(0, G4ThreeVector(), logicWorld, "World", 0, false, 0); // Volumen físico del mundo
 
     // -- Geometría multicapa --
-    G4double thickness = 2.0*cm; 
-    G4double thickness = 3.0*cm;
+    G4double thickness1 = 2.0*cm; 
+    G4double thickness2 = 3.0*cm;
     G4double sizeXY    = 8.0*cm;
+
+    // -- Capa 1: Pb --
+    G4Box* solidPb = new G4Box("PbLayer", sizeXY/2, sixeXY/2, thickness1/2); // Caja de la capa de Pb
+    logicPb = new G4LogicalVolume(solidPb, mat_Pb, "PbLayer"); // Volumen lógico de la capa de Pb
+    new G4PVPlacement(0, G4ThreeVector(0, G4ThreeVector(0, 0, thickness1/2), logicPb, "PbLayer", logicWorld, false, 0)); 
+
+    // -- Capa 2: Concreto --
+    G4Box* solidConc = new G4Box("ConcLayer", sizeXY/2, sizeXY/2, thickness2/2); // Caja de la capa de concreto
+    logicConc = new G4LogicalVolume(solidConc, mat_Concrete, "ConcLayer"); // Volumen lógico de la capa de concreto
+    new G4PVPlacement(0, G4ThreeVector(0, G4ThreeVector(0, 0, thickness1+
 }
