@@ -5,19 +5,19 @@
 #ifndef UserRunAction_h
 #define UserRunAction_h 1
 
-# include "G4Run.hh" // Inclusión de G4Run
-# include "G4RunManager.hh" // Inclusion de la otra clase
-# include "G4UserRunAction.hh" // Definido por el usuario
+# include "G4VUserRunAction.hh" // Definido por el usuario
 
-UserRunAction::UserRunAction() {}
-UserRunAction::~UserRunAction() {}
+class G4Run; // Para usar G4Run
 
-void UserRunAction::BeginOfRunAction(const G4Run*)
+class UserRunAction : public G4VUserRunAction
 {
-    // Parametros inciales para el run
-}
-void UserRunAction::EndOfRunAction(const G4Run*)
-{
-    // Parametros finales para el run
-    // Se cierran archivos de adquisicion de datos, o algo así
-}
+    public:
+        UserRunAction();
+        virtual ~UserRunAction();
+
+        virtual void BeginOfRunAction(const G4Run*); // Acción al inicio del run
+        virtual void EndOfRunAction(const G4Run*); // Acción al final del run
+
+};
+
+#endif // UserRunAction_h
