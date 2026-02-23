@@ -59,9 +59,9 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     // -- Capa 2: Concreto --
     G4Box* solidConc = new G4Box("ConcLayer", sizeXY/2, sizeXY/2, thickness2/2); // Caja de la capa de concreto
     logicConc = new G4LogicalVolume(solidConc, mat_Concrete, "ConcLayer"); // Volumen lógico de la capa de concreto
-    new G4PVPlacement(0, G4ThreeVector(0, 0, thickness1+planeThickness+thickness2/2), logicConc, "ConcLayer", logicWorld, false, 0);
-    
-    
+    G4double posConc = thickness1 + planeThickness + thickness2/2; // Posición de la capa de concreto
+    new G4PVPlacement(0, G4ThreeVector(0, 0, posConc), logicConc, "ConcLayer", logicWorld, false, 0);
+
     // -- Scoring plane para el concreto --
     G4Box* solidScoringConc = new G4Box("ScoringConc", sizeXY/2, sizeXY/2, planeThickness/2); // Caja del plano de puntuación para Pb
     logicScoringConc = new G4LogicalVolume(solidScoringConc, world_mat, "ScoringConc"); // Volumen lógico del plano de puntuación

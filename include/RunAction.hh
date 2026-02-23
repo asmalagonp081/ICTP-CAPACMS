@@ -5,7 +5,9 @@
 #ifndef UserRunAction_h
 #define UserRunAction_h 1
 
-# include "G4VUserRunAction.hh" // Definido por el usuario
+#include "G4VUserRunAction.hh" // Definido por el usuario
+#include "globals.hh" // Para usar unidades de medida
+
 
 class G4Run; // Para usar G4Run
 

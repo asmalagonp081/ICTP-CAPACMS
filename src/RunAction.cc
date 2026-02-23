@@ -12,6 +12,7 @@ UserRunAction::UserRunAction() : G4UserRunAction() {
     // Gestor de análsis para crear el csv
     auto analysisManager = G4AnalysisManager::Instance();
     analysisManager->SetDefaultFileType("csv");
+    analysisManager->CreateNtupleDColumn("Atenuación", "Fluencia en interfaces");
     analysisManager->CreateNtupleDColumn("E_inicial"); // MeV
     analysisManager->CreateNtupleIColumn("Cruce_Pb");
     analysisManager->CreateNtupleIColumn("Cruce_Conc");
