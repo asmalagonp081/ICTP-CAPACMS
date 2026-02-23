@@ -1,6 +1,7 @@
 # Proyecto ICTP 🥼🧬🕰
 
 ## Estructura del proyecto
+
 Geant4_Shielding_Project/
 ├── CMakeLists.txt             # Instrucciones de compilación para CMake
 ├── shielding_sim.cc           # El archivo principal (main)
