@@ -1,3 +1,0 @@
-/home/sofi/REPOS/ICTP-CAPACMS/build/CMakeFiles/ShieldingSimulation.dir
-/home/sofi/REPOS/ICTP-CAPACMS/build/CMakeFiles/edit_cache.dir
-/home/sofi/REPOS/ICTP-CAPACMS/build/CMakeFiles/rebuild_cache.dir
