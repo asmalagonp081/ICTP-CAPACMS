@@ -1,5 +1,0 @@
-# mesh name: boxMesh_1
-# primitive scorer name: FluxGamma
-# xy projection
-1 1 
-0,0,0

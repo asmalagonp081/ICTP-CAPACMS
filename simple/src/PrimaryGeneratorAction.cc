@@ -1,17 +1,14 @@
-//Define el haz incidente
+// SIMULACIÓN DE ATENUACIÓN DE RAYOS GAMMA USANDO G4 Y MULASSIS
+// Define el haz incidente
 
 #include "PrimaryGeneratorAction.hh"
-
-//#include "G4Event.hh"
 #include "G4ParticleGun.hh"
 #include "G4ParticleTable.hh"
 #include "G4ParticleDefinition.hh"
-//#include "G4ChargedGeantino.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4PhysicalConstants.hh"
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//#include "G4Event.hh"
+//#include "G4ChargedGeantino.hh"
 
 PrimaryGeneratorAction::PrimaryGeneratorAction()
   : G4VUserPrimaryGeneratorAction(),
@@ -30,15 +27,12 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
   
 }
 
-//....oooOO0OOooo........oooOO0OOooo.......oooOO0OOooo........oooOO0OOooo......
 
 PrimaryGeneratorAction::~PrimaryGeneratorAction()
 {
   delete fParticleGun;
 }
 
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
@@ -47,5 +41,4 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   fParticleGun->GeneratePrimaryVertex(anEvent); 
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 

@@ -1,3 +1,0 @@
-/home/sofi/REPOS/ICTP-CAPACMS/simple/build/CMakeFiles/simple.dir
-/home/sofi/REPOS/ICTP-CAPACMS/simple/build/CMakeFiles/edit_cache.dir
-/home/sofi/REPOS/ICTP-CAPACMS/simple/build/CMakeFiles/rebuild_cache.dir

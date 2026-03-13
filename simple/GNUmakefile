@@ -1,7 +1,4 @@
-# --------------------------------------------------------------
-# GNUmakefile for examples module.  Gabriele Cosmo, 06/04/98.
-# --------------------------------------------------------------
-
+# --- GNUmakefile ---
 name := exampleB1
 G4TARGET := $(name)
 G4EXLIB := true

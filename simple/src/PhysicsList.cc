@@ -1,10 +1,8 @@
-//Define la física a usar en la simulación
+// SIMULACIÓN DE ATENUACIÓN DE RAYOS GAMMA USANDO G4 Y MULASSIS
 
 #include "PhysicsList.hh"
 
 #include "G4EmStandardPhysics.hh"
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 PhysicsList::PhysicsList() 
   : G4VModularPhysicsList(){
@@ -16,13 +14,8 @@ PhysicsList::PhysicsList()
   
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 PhysicsList::~PhysicsList()
 { }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 
 void PhysicsList::SetCuts()
 {
@@ -32,5 +25,5 @@ void PhysicsList::SetCuts()
   G4VUserPhysicsList::SetCuts();
 }  
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 

@@ -1,7 +1,5 @@
 //Construcción del target, detector
-
 #include "DetectorConstruction.hh"
-
 #include "G4NistManager.hh"
 #include "G4Box.hh"
 #include "G4Sphere.hh"
@@ -13,25 +11,18 @@
 #include "G4SubtractionSolid.hh"
 #include "G4PhysicalConstants.hh"
 #include "G4SystemOfUnits.hh"
-
 #include "G4VisAttributes.hh"
 #include "G4Colour.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 
 DetectorConstruction::DetectorConstruction()
   : G4VUserDetectorConstruction(),
     fCheckOverlaps(true)
 {}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 DetectorConstruction::~DetectorConstruction()
 { }
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 
 G4VPhysicalVolume* DetectorConstruction::Construct()
 {
@@ -54,24 +45,23 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   G4Material* boxmaterial2 = nist->FindOrBuildMaterial("G4_CONCRETE");
 
   
-  // World ()
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  // --- Mundo ---
   G4double world_sizeXY = 2.0*meter;
   G4double world_sizeZ  = 2.0*meter;
   
-  //Solid volume
+  // Volumen solido del mundo
   G4Box* solidWorld = new G4Box("World",
 				0.5*world_sizeXY,
 				0.5*world_sizeXY,
-				0.5*world_sizeZ); //its size
+				0.5*world_sizeZ); 
   
-  //Logical volume
+  // Volumen lógico del mundo
   G4LogicalVolume* logicWorld =                         
     new G4LogicalVolume(solidWorld,          //its solid
                         Vacuum,         //its material
                         "World");            //its name
   
-  //Physical volume
+  // Volumen físico del mundo
   G4VPhysicalVolume* physWorld = 
     new G4PVPlacement(0,                     //no rotation
                       G4ThreeVector(),       //at (0,0,0)
@@ -88,12 +78,12 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   G4double boxHLZ   = 0.10*cm;
   G4double box2HLZ  = 0.20*cm;
   
-  // Box volume
+  // -- Capa de plomo Pb --
   G4Box* solidBox = new G4Box("Box", boxHLX, boxHLY, boxHLZ);
   G4LogicalVolume *logicBox = new G4LogicalVolume(solidBox, boxmaterial,"Box");
   new G4PVPlacement(0, G4ThreeVector(), logicBox, "Box", logicWorld, false, 0, fCheckOverlaps); 
 
-  // Box volume2
+  // -- Capa de concreto Conc --
   G4Box* solidBox2 = new G4Box("Box2", boxHLX, boxHLY, box2HLZ);
   G4LogicalVolume *logicBox2 = new G4LogicalVolume(solidBox2, boxmaterial2,"Box2");
   new G4PVPlacement(0, G4ThreeVector(0.0, 0.0, boxHLZ + box2HLZ), logicBox2, "Box2", logicWorld, false, 0, fCheckOverlaps); 
@@ -102,5 +92,4 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   return physWorld; 
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
