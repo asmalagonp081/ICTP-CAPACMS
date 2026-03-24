@@ -1,0 +1,45 @@
+# ==========================================================
+# run_attenuation.mac - BARRIDO DE ENERGÍA Y ESPESORES
+# ==========================================================
+
+/control/verbose 0
+/run/verbose 0
+/event/verbose 0
+/tracking/verbose 0
+
+# Inicializar el kernel
+/run/initialize
+
+# Configuración de la fuente (Pistola de partículas)
+/gun/particle gamma
+/gun/direction 0 0 1
+/gun/position 0 0 -1 cm
+
+# ----------------------------------------------------------
+# SELECCIONA EL CASO DESCOMENTANDO LAS LÍNEAS CORRESPONDIENTES
+# ----------------------------------------------------------
+
+# CASO 1: 0.1 MeV | Pb Fijo: 0.01 cm
+#/gun/energy 0.1 MeV
+# Espesores Concreto: 0.005, 0.01, 0.02, 0.04, 0.06
+
+# CASO 2: 0.3 MeV | Pb Fijo: 0.16 cm
+#/gun/energy 0.3 MeV
+# Espesores Concreto: 0.05, 0.15, 0.30, 0.50, 0.70
+
+# CASO 3: 0.5 MeV | Pb Fijo: 0.20 cm
+#/gun/energy 0.5 MeV
+# Espesores Concreto: 0.10, 0.30, 0.60, 1.00, 1.50
+
+# CASO 4: 0.662 MeV (Cs137) | Pb Fijo: 0.30 cm
+/gun/energy 0.662 MeV
+# Espesores Concreto: 0.20, 0.50, 1.00, 1.50, 2.00
+
+# CASO 5: 1.0 MeV | Pb Fijo: 0.43 cm
+#/gun/energy 1.0 MeV
+# Espesores Concreto: 0.30, 0.80, 1.50, 2.50, 3.50
+
+# ... (Repetir para 1.25, 2.0, 5.0, 8.0, 10.0 MeV con tus tablas)
+
+# EJECUCIÓN
+/run/beamOn 1000000
