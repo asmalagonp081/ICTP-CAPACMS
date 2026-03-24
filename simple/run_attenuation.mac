@@ -1,9 +1,6 @@
+/control/verbose 2
 /run/initialize
 
-/detector/thickness 1 mm
-/detector/aThickness 2 mm
+# Loop principal (espesor)
+/control/loop thicknessLoop.mac T 0.5 0.5 1 mm
 
-/run/reinitializeGeometry
-
-/gun/energy 5 MeV
-/run/beamOn 1000000

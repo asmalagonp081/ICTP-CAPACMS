@@ -1,0 +1,8 @@
+# Cambiar la energía
+/gun/energy {E}
+
+# guardar datos 
+/analysis/setFileName output_T{T}_E{E}
+
+# Correr simulación
+/run/beamOn 10

@@ -35,9 +35,11 @@ set(SIMPLE_SCRIPTS
   init_vis.mac
   #run1.mac
   #run2.mac
-  run3.mac
+  #run3.mac
   vis.mac
   run_attenuation.mac
+  thicknessLoop.mac
+  energyLoop.mac
   )
 
 foreach(_script ${SIMPLE_SCRIPTS})
