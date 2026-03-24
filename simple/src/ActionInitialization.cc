@@ -29,9 +29,8 @@
 
 #include "ActionInitialization.hh"
 
-//#include "EventAction.hh"
 #include "PrimaryGeneratorAction.hh"
-//#include "RunAction.hh"
+#include "RunAction.hh"
 #include "SteppingAction.hh"
 #include "G4PhysicalConstants.hh"
 #include "G4SystemOfUnits.hh"
@@ -43,8 +42,8 @@ namespace simple
 
 void ActionInitialization::BuildForMaster() const
 {
-  //auto runAction = new RunAction;
-  //SetUserAction(runAction);
+  auto runAction = new RunAction;
+  SetUserAction(runAction);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -53,14 +52,12 @@ void ActionInitialization::Build() const
 {
   SetUserAction(new PrimaryGeneratorAction);
 
-  //auto runAction = new RunAction;
-  //SetUserAction(runAction);
+  auto runAction = new RunAction;
+  SetUserAction(runAction);
 
-  //auto eventAction = new EventAction(runAction);
-  //SetUserAction(eventAction);
   G4double E0 = 661.7*keV; //1*MeV;
   SetUserAction(new SteppingAction(E0));
-  
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

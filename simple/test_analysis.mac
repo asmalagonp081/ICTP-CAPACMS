@@ -1,0 +1,11 @@
+# Archivo de prueba simple para análisis
+/control/verbose 1
+/run/initialize
+
+# Configurar análisis
+/analysis/setFileName test_output
+/analysis/h1/set 0 100 0 1 MeV  # Configurar histograma de energía
+
+# Simulación simple
+/gun/energy 661.7 keV
+/run/beamOn 100

@@ -3,6 +3,7 @@
 #include "G4Step.hh"
 #include "G4Gamma.hh"
 #include "G4Track.hh"
+#include "G4AnalysisManager.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4ios.hh"
 
@@ -37,7 +38,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   if(!prePoint || !postPoint) return;
   auto preVol  = prePoint->GetTouchableHandle()->GetVolume();
   auto postVol = postPoint->GetTouchableHandle()->GetVolume();
-  
+
   if(!preVol) return;
 
  // detectar salida del plomo
@@ -46,31 +47,26 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
       if(postVol && postVol->GetName() != "Box")
 	{
           G4double E = track->GetKineticEnergy();
-	  
+
           if(std::abs(E - fE0) < 1*eV)
 	    {
               fTransmitted++;
-	      
+
+              // Guardar datos en análisis
+              auto analysisManager = G4AnalysisManager::Instance();
+              if(analysisManager) {
+                // Llenar histograma de energía
+                analysisManager->FillH1(0, E);  // H1 "Egamma"
+
+                // Llenar ntuple con datos detallados
+                analysisManager->FillNtupleDColumn(0, E);  // Energía
+                analysisManager->FillNtupleDColumn(1, track->GetPosition().z());  // Posición Z
+                analysisManager->FillNtupleIColumn(2, G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID());  // EventID
+                analysisManager->AddNtupleRow();
+              }
+
               track->SetTrackStatus(fStopAndKill);
 	    }
 	}
     }
 }
-  //auto preVol  = prePoint->GetTouchableHandle()->GetVolume();
-  //auto postVol = postPoint->GetTouchableHandle()->GetVolume();
-  //  auto preVolume = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetName();
-  //  auto postVolume = step->GetPostStepPoint()->GetTouchableHandle()->GetVolume()->GetName();
-
-  // fotón sale del plomo
-  //if(preVolume == "Box" && postVolume != "Box")
-  //{
-//  G4double E = track->GetKineticEnergy();
-
-//    if(std::abs(E - fE0) < 1*eV)
-//    {
-//        fTransmitted++;
-
-//        track->SetTrackStatus(fStopAndKill);
-//    }
-//}
-//}
