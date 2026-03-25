@@ -8,7 +8,7 @@ class SteppingAction : public G4UserSteppingAction
 {
 public:
 
-  SteppingAction(G4double E0);
+  SteppingAction();
   virtual ~SteppingAction();
 
   virtual void UserSteppingAction(const G4Step*);
@@ -17,10 +17,7 @@ public:
 
 private:
 
-  G4double fE0;
-
   G4int fTransmitted;   // contador de fotones buenos
 };
 
 #endif
-

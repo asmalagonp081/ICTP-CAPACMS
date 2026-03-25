@@ -4,12 +4,12 @@
 #include "G4Gamma.hh"
 #include "G4Track.hh"
 #include "G4AnalysisManager.hh"
+#include "G4RunManager.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4ios.hh"
 
-SteppingAction::SteppingAction(G4double E0)
-: fE0(E0),
-  fTransmitted(0)
+SteppingAction::SteppingAction()
+: fTransmitted(0)
 {}
 
 SteppingAction::~SteppingAction()
@@ -42,13 +42,14 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   if(!preVol) return;
 
  // detectar salida del plomo
-  if(preVol->GetName() == "Box")
+  if(preVol->GetName() == "BoxPb")
     {
-      if(postVol && postVol->GetName() != "Box")
+      if(postVol && postVol->GetName() != "BoxPb")
 	{
           G4double E = track->GetKineticEnergy();
 
-          if(std::abs(E - fE0) < 1*eV)
+          // Comparamos contra la energía inicial de la partícula (VertexKineticEnergy)
+          if(std::abs(E - track->GetVertexKineticEnergy()) < 1*eV)
 	    {
               fTransmitted++;
 

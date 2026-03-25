@@ -24,6 +24,7 @@ DetectorConstruction::DetectorConstruction()
     aThickness(0.005*cm)
 {
   // -- Messenger --
+  // Permite hacer el barrido de espesores desde el macro
   fMessenger = new G4GenericMessenger(this, "/simple/det/", "Detector control");
 
   fMessenger->DeclareMethod("thickness",
@@ -59,22 +60,26 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   // Llamado a la base de datos del NIST
   G4NistManager* nist = G4NistManager::Instance();
 
-  // Definición del "vacío"
+  // Definición del "vacío" -> Equivalente al Galactic
   G4double presion, temperatura, densidad;
   densidad     = universe_mean_density;    //from PhysicalConstants.h
   presion    = 3.e-18*pascal;
   temperatura = 2.73*kelvin;
 
-  G4Material* Vacuum   = new G4Material("Vacuum",
-                                        1., 1.01*g/mole, densidad,
-                                        kStateGas,temperatura,presion);
+  G4Material* Vacuum   = new G4Material("Vacuum", 1., 1.01*g/mole, densidad, kStateGas,temperatura,presion);
 
-  
+  //-----------------------------------------------------------------------
 
-  //Definición de los materiales
+  // Definición de los materiales (Primera configuración)
   G4Material* boxPb = nist->FindOrBuildMaterial("G4_Pb");
   G4Material* boxConc = nist->FindOrBuildMaterial("G4_CONCRETE");
   G4Material* boxGal = nist->FindOrBuildMaterial("G4_Galactic");
+
+  // Segunda configuración 
+  /*
+  G4Material* boxPoly = nist->FindOrBuildMaterial("G4_POLYETHYLENE");
+  G4Material* boxAl = nist->FindOrBuildMaterial("G4_Al");
+  */
 
   // -- Mundo --
   G4double world_sizeXY = 2.0*meter;

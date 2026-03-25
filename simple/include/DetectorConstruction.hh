@@ -16,7 +16,7 @@ public:
   /// destructor
   virtual ~DetectorConstruction();
 
-  virtual G4VPhysicalVolume* Construct();
+  virtual G4VPhysicalVolume* Construct(); // Método obligatorio
 
   //Setters
   void SetThickness(G4double val);

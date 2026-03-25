@@ -2,7 +2,7 @@
 # Setup the project
 #
 cmake_minimum_required(VERSION 3.16...3.27)
-project(B1)
+project(simple)
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
@@ -31,7 +31,7 @@ target_link_libraries(simple PRIVATE ${Geant4_LIBRARIES})
 #
 set(SIMPLE_SCRIPTS
   simple.in
-  simple.out
+  #simple.out
   init_vis.mac
   #run1.mac
   #run2.mac
