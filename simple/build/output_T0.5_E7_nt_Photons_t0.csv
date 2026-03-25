@@ -1,9 +1,0 @@
-#class tools::wcsv::ntuple
-#title Transmitted photon data
-#separator 44
-#vector_separator 59
-#column double Energy
-#column double PositionZ
-#column int EventID
-7,0.25,0
-7,0.25,1

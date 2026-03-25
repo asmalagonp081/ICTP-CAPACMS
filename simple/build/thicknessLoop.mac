@@ -1,8 +1,0 @@
-# Cambiar el espesor
-/simple/det/thickness {T}
-
-# Actualiza la geometría
-/run/reinitializeGeometry
-
-# Loop de energías (en MeV)
-/control/loop energyLoop.mac E 1 10 1

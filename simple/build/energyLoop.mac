@@ -1,8 +1,0 @@
-# Cambiar la energía
-/gun/energy {E} MeV
-
-# guardar datos 
-/analysis/setFileName output_T{T}_E{E}.csv
-
-# Correr simulación
-/run/beamOn 10

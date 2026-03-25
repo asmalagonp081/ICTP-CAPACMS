@@ -1,0 +1,2 @@
+# Ignorar la carpeta build dentro del subproyecto `simple`
+/simple/build/
