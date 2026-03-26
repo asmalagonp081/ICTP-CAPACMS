@@ -2,5 +2,5 @@
 /run/initialize
 
 # Loop principal (espesor)
-/control/loop thicknessLoop.mac T 0.5 0.5 1 mm
+/control/loop thicknessLoop.mac T 0.1 1.0 0.1 mm
 

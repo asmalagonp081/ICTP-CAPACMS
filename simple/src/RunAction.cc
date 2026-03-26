@@ -6,6 +6,7 @@
 #include "G4Run.hh"
 #include "G4RunManager.hh"
 #include "G4AnalysisManager.hh"
+#include "SteppingAction.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4ios.hh"
 
@@ -39,6 +40,13 @@ RunAction::~RunAction()
 void RunAction::BeginOfRunAction(const G4Run* run)
 {
   G4cout << "### Run " << run->GetRunID() << " start." << G4endl;
+
+  // Resetear el contador de SteppingAction al inicio de cada run
+  auto stepAction = (SteppingAction*)G4RunManager::GetRunManager()->GetUserSteppingAction();
+  if(stepAction) {
+      stepAction->ResetCount();
+      G4cout << "### SteppingAction counter reset for new thickness/energy." << G4endl;
+  }
 
   // Abrir archivo de salida
   fAnalysisManager->OpenFile();

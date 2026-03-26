@@ -32,6 +32,14 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   if(track->GetParentID() != 0)
       return;
 
+  // --- Filtro de Haz Estrecho ---
+  // Si el fotón primario interactúa (pierde energía), lo eliminamos de inmediato.
+  // Esto garantiza que solo los fotones "puros" puedan llegar al final.
+  if(std::abs(track->GetKineticEnergy() - track->GetVertexKineticEnergy()) > 1*eV) {
+      track->SetTrackStatus(fStopAndKill);
+      return;
+  }
+
   auto prePoint  = step->GetPreStepPoint();
   auto postPoint = step->GetPostStepPoint();
 
@@ -41,33 +49,30 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 
   if(!preVol) return;
 
- // detectar salida del plomo
-  if(preVol->GetName() == "BoxPb")
+  // --- Detección en la salida de la última capa (Concreto - Box3) ---
+  // El fotón solo llega aquí si pasó por el plomo sin interactuar.
+  if(preVol->GetName() == "Box3")
     {
-      if(postVol && postVol->GetName() != "BoxPb")
-	{
-          G4double E = track->GetKineticEnergy();
+      if(postVol && postVol->GetName() != "Box3")
+        {
+          fTransmitted++;
 
-          // Comparamos contra la energía inicial de la partícula (VertexKineticEnergy)
-          if(std::abs(E - track->GetVertexKineticEnergy()) < 1*eV)
-	    {
-              fTransmitted++;
+          // Guardar datos en análisis
+          auto analysisManager = G4AnalysisManager::Instance();
+          if(analysisManager) {
+            G4double E = track->GetKineticEnergy();
+            // Llenar histograma de energía
+            analysisManager->FillH1(0, E);  // H1 "Egamma"
 
-              // Guardar datos en análisis
-              auto analysisManager = G4AnalysisManager::Instance();
-              if(analysisManager) {
-                // Llenar histograma de energía
-                analysisManager->FillH1(0, E);  // H1 "Egamma"
+            // Llenar ntuple con datos detallados
+            analysisManager->FillNtupleDColumn(0, E);  // Energía
+            analysisManager->FillNtupleDColumn(1, track->GetPosition().z());  // Posición Z
+            analysisManager->FillNtupleIColumn(2, G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID());  // EventID
+            analysisManager->AddNtupleRow();
+          }
 
-                // Llenar ntuple con datos detallados
-                analysisManager->FillNtupleDColumn(0, E);  // Energía
-                analysisManager->FillNtupleDColumn(1, track->GetPosition().z());  // Posición Z
-                analysisManager->FillNtupleIColumn(2, G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID());  // EventID
-                analysisManager->AddNtupleRow();
-              }
-
-              track->SetTrackStatus(fStopAndKill);
-	    }
-	}
+          // Matamos la partícula después de contarla para evitar doble conteo
+          track->SetTrackStatus(fStopAndKill);
+        }
     }
 }

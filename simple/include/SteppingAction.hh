@@ -14,6 +14,7 @@ public:
   virtual void UserSteppingAction(const G4Step*);
 
   G4int GetTransmitted() const { return fTransmitted; }
+  void ResetCount() { fTransmitted = 0; } // Resetea el contador para el siguiente espesor y sus eventos
 
 private:
 

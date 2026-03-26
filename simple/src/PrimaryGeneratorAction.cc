@@ -15,17 +15,24 @@
 
 PrimaryGeneratorAction::PrimaryGeneratorAction()
   : G4VUserPrimaryGeneratorAction(),
-    fParticleGun(0)
+    fParticleGun(nullptr),
+    fParticleEnergy(1.0*MeV)
 {
   G4int n_particle = 1;
   fParticleGun = new G4ParticleGun(n_particle);
   
+  // -- Messenger --
+  fMessenger = new G4GenericMessenger(this, "/simple/gun/", "Gun control");
+  fMessenger->DeclareMethod("energy",
+                            &PrimaryGeneratorAction::SetParticleEnergy,
+                            "Set the energy of the particle");
+
   // default particle kinematic
   G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
   G4ParticleDefinition* particle = particleTable->FindParticle("gamma");
   fParticleGun->SetParticleDefinition(particle);
   fParticleGun->SetParticlePosition(G4ThreeVector(0.,0.,-0.5*meter));
-  fParticleGun->SetParticleEnergy(0.1*MeV);
+  fParticleGun->SetParticleEnergy(fParticleEnergy);
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
   
 }
@@ -35,6 +42,7 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
 PrimaryGeneratorAction::~PrimaryGeneratorAction()
 {
   delete fParticleGun;
+  delete fMessenger;
 }
 
 
@@ -42,10 +50,14 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-  
   //Create the vertex of the primary particle passing it to the G4Event pointer
   fParticleGun->GeneratePrimaryVertex(anEvent); 
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void PrimaryGeneratorAction::SetParticleEnergy(G4double val)
+{
+  fParticleEnergy = val;
+  if(fParticleGun) fParticleGun->SetParticleEnergy(fParticleEnergy);
+}
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

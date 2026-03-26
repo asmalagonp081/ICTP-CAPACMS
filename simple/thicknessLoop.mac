@@ -1,5 +1,5 @@
 # Cambiar el espesor
-/simple/det/thickness {T}
+/simple/det/thickness {T} cm
 
 # Actualiza la geometría
 /run/reinitializeGeometry

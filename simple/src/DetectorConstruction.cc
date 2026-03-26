@@ -151,6 +151,11 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     logicGap2, "Box4",
     logicWorld, false, 0, fCheckOverlaps);
 
+  // -- Atributos de Visualización --
+  logicPb->SetVisAttributes(new G4VisAttributes(G4Colour::Blue()));
+  logicConc->SetVisAttributes(new G4VisAttributes(G4Colour::Brown()));
+  logicGap1->SetVisAttributes(G4VisAttributes::GetInvisible());
+  logicGap2->SetVisAttributes(G4VisAttributes::GetInvisible());
+
   return physWorld;
 }
-
