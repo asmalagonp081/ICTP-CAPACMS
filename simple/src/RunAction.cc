@@ -16,6 +16,9 @@ RunAction::RunAction()
   : G4UserRunAction(),
     fAnalysisManager(G4AnalysisManager::Instance())
 {
+  fAnalysisManager->SetDefaultFileType("csv");
+  fAnalysisManager->SetFileName("output_default"); // Nombre por defecto para evitar warnings
+
   // Crear histogramas
   fAnalysisManager->CreateH1("Egamma", "Energy of transmitted gammas", 100, 0., 1.0*MeV);
   fAnalysisManager->CreateH1("Transmitted", "Number of transmitted gammas per event", 50, 0, 50);
@@ -32,7 +35,7 @@ RunAction::RunAction()
 
 RunAction::~RunAction()
 {
-  delete G4AnalysisManager::Instance();
+  // El AnalysisManager es gestionado por Geant4, no se debe borrar manualmente.
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
