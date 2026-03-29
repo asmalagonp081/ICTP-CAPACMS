@@ -1,0 +1,113 @@
+# ---- Configuración Poly_Aluminio ----
+
+# ---- World ----
+S:Ge/World/Material         = "Vacuum"
+d:Ge/World/HLX               = 50 cm
+d:Ge/World/HLY               = 50 cm
+d:Ge/World/HLZ               = 50 cm
+
+
+# ---- Target Polietileno Volume ----
+# -- Solid --
+s:Ge/TargetPb/Type     = "TsBox"
+d:Ge/TargetPb/HLX      = 3 cm
+d:Ge/TargetPb/HLY      = 3 cm
+d:Ge/TargetPb/HLZ      = 1.0 cm # Modificar----------------------------------------------------------------
+# -- Logical volume --
+s:Ge/TargetPb/Material = "G4_POLYETHYLENE"
+# -- Physical volume --
+s:Ge/TargetPb/Parent   = "World"
+s:Ge/TargetPb/Color    =  "white" 
+
+# ---- Detector Poly Volume ----
+# -- Solid --
+s:Ge/DetPb/Type     = "TsBox"
+d:Ge/DetPb/HLX      = 3 cm
+d:Ge/DetPb/HLY      = 3 cm
+d:Ge/DetPb/HLZ      = 0.1 mm 
+# -- Logical volume --
+s:Ge/DetPb/Material = "Vacuum"
+# -- Physical volume --
+d:Ge/DetPb/TransZ    = Ge/TargetPb/HLZ + Ge/DetPb/HLZ cm
+s:Ge/DetPb/Parent   = "World"
+s:Ge/DetPb/Color    =  "blue" 
+
+# ---- Target Aluminio ----
+# -- Solid --
+s:Ge/TargetConc/Type     = "TsBox"
+d:Ge/TargetConc/HLX      = 3 cm
+d:Ge/TargetConc/HLY      = 3 cm
+d:Ge/TargetConc/HLZ      = 15.0 cm # Modificar----------------------------------------------------------------
+# -- Logical volume --
+s:Ge/TargetConc/Material = "G4_Al"
+# -- Physical volume --
+d:TraslacionTC           = Ge/DetPb/TransZ + Ge/DetPb/HLZ cm
+d:Ge/TargetConc/TransZ   = Ge/TargetConc/HLZ + TraslacionTC cm
+s:Ge/TargetConc/Parent   = "World"
+s:Ge/TargetConc/Color    =  "brown" 
+
+# ---- Detector Aluminio Volume ----
+# -- Solid --
+s:Ge/DetConc/Type     = "TsBox"
+d:Ge/DetConc/HLX      = 3 cm
+d:Ge/DetConc/HLY      = 3 cm
+d:Ge/DetConc/HLZ      = 0.1 mm 
+# -- Logical volume --
+s:Ge/DetConc/Material = "Vacuum"
+# -- Physical volume --
+d:TrasZ               = Ge/TargetConc/HLZ + Ge/DetConc/HLZ cm
+d:Ge/DetConc/TransZ   = Ge/TargetConc/TransZ + TrasZ cm
+s:Ge/DetConc/Parent   = "World"
+s:Ge/DetConc/Color    =  "pink"
+
+# ---- Fuente de rayos gamma ----
+s:So/MySource/Type             = "Beam"
+s:So/MySource/Component        = "BeamPosition"
+s:So/MySource/BeamParticle     = "gamma"
+dc:So/MySource/BeamEnergy      = 10.0 MeV # Modificar----------------------------------------------------------------
+u:So/MySource/BeamEnergySpread = 0.0
+s:So/MySource/BeamPositionDistribution = "None"
+s:So/MySource/BeamAngularDistribution  = "None"
+i:So/MySource/NumberOfHistoriesInRun   = 10000 # Modificar----------------------------------------------------------------
+
+
+d:Ge/BeamPosition/TransZ = -10.0 * Ge/TargetPb/HLZ cm
+d:Ge/BeamPosition/RotX = 0. deg
+sv:Ph/Default/Modules    = 1 "g4em-standard_opt4"
+
+# ---- Scorer Plomo ----
+s:Sc/ScorerPb/Quantity                  = "SurfaceCurrent"
+s:Sc/ScorerPb/Surface                   = "DetPb/ZMinusSurface"
+s:Sc/ScorerPb/Component                 = "DetPb"
+b:Sc/ScorerPb/OutputToConsole           = "TRUE"
+s:Sc/ScorerPb/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/ScorerPb/OnlyIncludeParticlesOfGeneration = "Primary"
+sv:Sc/ScorerPb/OnlyIncludeParticlesNamed       = 1 "gamma"
+# Filtro para asegurar que solo contamos fotones que NO perdieron energía
+d:Sc/ScorerPb/OnlyIncludeParticlesWithKEAbove  = 9.9 MeV # Modificar----------------------------------------------------------------
+
+sv:Sc/ScorerPb/Report = 3 "Mean" "Histories" "Count_In_Bin"
+
+# ---- Scorer Concreto ----
+s:Sc/ScorerConc/Quantity                  = "SurfaceCurrent"
+s:Sc/ScorerConc/Surface                   = "DetConc/ZMinusSurface"
+s:Sc/ScorerConc/Component                 = "DetConc"
+b:Sc/ScorerConc/OutputToConsole           = "TRUE"
+s:Sc/ScorerConc/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/ScorerConc/OnlyIncludeParticlesOfGeneration = "Primary"
+sv:Sc/ScorerConc/OnlyIncludeParticlesNamed       = 1 "gamma"
+d:Sc/ScorerConc/OnlyIncludeParticlesWithKEAbove  = 9.9 MeV # Modificar----------------------------------------------------------------
+
+
+sv:Sc/ScorerConc/Report = 3 "Mean" "Histories" "Count_In_Bin"
+
+# ---- Interfaz ----
+i:Ts/TrackingVerbosity = 0
+
+#s:Gr/ViewA/Type = "OpenGL"
+#Ts/UseQt        = "True"
+i:Ts/NumberOfThreads = 8
+b:Gr/ViewA/IncludeAxes = "True" # defaults to "False"
+s:Gr/ViewA/AxesComponent = "World" 
+d:Gr/ViewA/AxesSize = 1.5 cm # size of axes
+u:Gr/ViewA/AxesLabelScale = 0.1

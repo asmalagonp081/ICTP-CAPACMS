@@ -3,10 +3,8 @@
 
 #include "G4VUserDetectorConstruction.hh"
 #include "globals.hh"
-#include "G4GenericMessenger.hh"
 
-
-
+class G4VPhysicalVolume;
 
 class DetectorConstruction : public G4VUserDetectorConstruction
 {
@@ -15,22 +13,13 @@ public:
   DetectorConstruction();
   /// destructor
   virtual ~DetectorConstruction();
-
-  virtual G4VPhysicalVolume* Construct(); // Método obligatorio
-
-  //Setters
-  void SetThickness(G4double val);
-  void SetAThickness(G4double val);
+  
+public:
+  /// Defines detector geom. and returns a pointer to the physical World Volume
+  virtual G4VPhysicalVolume* Construct();
   
 private:  
   G4bool  fCheckOverlaps;
-
-  // Espesores
-  G4double fThickness;
-  G4double aThickness;
-  
-  //Messenger
-  G4GenericMessenger* fMessenger;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

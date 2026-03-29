@@ -8,17 +8,19 @@ class SteppingAction : public G4UserSteppingAction
 {
 public:
 
-  SteppingAction();
+  SteppingAction(G4double E0);
   virtual ~SteppingAction();
 
   virtual void UserSteppingAction(const G4Step*);
 
   G4int GetTransmitted() const { return fTransmitted; }
-  void ResetCount() { fTransmitted = 0; } // Resetea el contador para el siguiente espesor y sus eventos
 
 private:
+
+  G4double fE0;
 
   G4int fTransmitted;   // contador de fotones buenos
 };
 
 #endif
+

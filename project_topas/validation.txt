@@ -1,0 +1,70 @@
+# ---- Dimensiones del mundo ----
+s:Ge/World/Material                      = "Vacuum"
+d:Ge/World/HLX                           = 15.0 cm
+d:Ge/World/HLY                           = 15.0 cm
+d:Ge/World/HLZ                           = 15.0 cm
+b:Ge/World/Invisible = "True"
+
+# ---- Material ----
+# Solid
+s:Ge/Target/Type     = "TsBox"
+d:Ge/Target/HLX      = 1 cm
+d:Ge/Target/HLY      = 1 cm
+# Este es el espesor de la lámina de plomo que se varía
+d:Ge/Target/HLZ     = 2.5 cm
+
+# Logical volume
+s:Ge/Target/Material = "G4_Al"
+# Physical volume
+s:Ge/Target/Parent   = "World"
+s:Ge/Target/Color    =  "white" 
+
+# ----- Detector -----
+# Solid
+s:Ge/Detector/Type     = "TsBox"
+d:Ge/Detector/HLX      = 1 cm
+d:Ge/Detector/HLY      = 1 cm
+d:Ge/Detector/HLZ      = 0.1 mm # Justo despues del plomo (muy delgado)
+
+# Logical volume
+s:Ge/Detector/Material = "Vacuum"
+# Physical volume
+d:Ge/Detector/TransZ    = Ge/Target/HLZ + Ge/Detector/HLZ mm
+s:Ge/Detector/Parent   = "World"
+s:Ge/Detector/Color    =  "blue" 
+
+# ---- Fuente de rayos gamma ----
+s:So/MySource/Type             = "Beam" 
+s:So/MySource/Component        = "BeamPosition"
+s:So/MySource/BeamParticle     = "gamma"
+dc:So/MySource/BeamEnergy      = 1 MeV
+u:So/MySource/BeamEnergySpread = 0.0 # Haz colimado
+s:So/MySource/BeamPositionDistribution = "None" 
+s:So/MySource/BeamAngularDistribution  = "None"
+i:So/MySource/NumberOfHistoriesInRun   = 1000
+
+d:Ge/BeamPosition/TransZ = -0.5 * Ge/World/HLZ m
+d:Ge/BeamPosition/RotX = 0. deg
+sv:Ph/Default/Modules    = 1 "g4em-standard_opt4"
+
+s:Sc/MyScorer/Quantity                  = "SurfaceCurrent"
+s:Sc/MyScorer/Surface                   = "Detector/ZMinusSurface"
+s:Sc/MyScorer/Component                 = "Detector"
+b:Sc/MyScorer/OutputToConsole           = "TRUE"
+s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/MyScorer/OnlyIncludeParticlesOfGeneration = "Primary"
+sv:Sc/MyScorer/OnlyIncludeParticlesNamed       = 1 "gamma"
+# Filtro para asegurar que solo contamos fotones que NO perdieron energía
+d:Sc/MyScorer/OnlyIncludeParticlesWithKEAbove  = 0.9 MeV
+
+sv:Sc/MyScorer/Report = 3 "Mean" "Histories" "Count_In_Bin"
+
+i:Ts/TrackingVerbosity = 0
+
+#s:Gr/ViewA/Type = "OpenGL"
+#Ts/UseQt        = "True"
+i:Ts/NumberOfThreads = 8
+b:Gr/ViewA/IncludeAxes = "True" # defaults to "False"
+s:Gr/ViewA/AxesComponent = "World" 
+d:Gr/ViewA/AxesSize = 1.5 cm # size of axes
+u:Gr/ViewA/AxesLabelScale = 0.1

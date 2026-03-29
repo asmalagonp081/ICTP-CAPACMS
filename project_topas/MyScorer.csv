@@ -1,0 +1,9 @@
+# TOPAS Version: 3.9
+# Parameter File: validation.txt
+# Results for scorer: MyScorer
+# Filtered by: OnlyIncludeParticlesOfGeneration = "Primary"
+# Filtered by: OnlyIncludeParticlesWithKEAbove = 0.9 MeV
+# Filtered by: OnlyIncludeParticlesNamed = 1 "gamma"
+# Scored on surface: Detector/ZMinusSurface
+# SurfaceCurrent ( /mm2 ) : Mean   Histories_with_Scorer_Active   Count_in_Bin   
+0.00115, 1000, 460

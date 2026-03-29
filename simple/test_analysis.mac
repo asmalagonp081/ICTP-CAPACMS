@@ -6,6 +6,10 @@
 /analysis/setFileName test_output
 /analysis/h1/set 0 100 0 1 MeV  # Configurar histograma de energía
 
-# Simulación simple
-/gun/energy 661.7 keV
-/run/beamOn 100
+# Espesores para el material
+/simple/det/thickness 1.0 cm
+
+# Energía de la fuente
+/gun/energy 1.0 MeV
+
+/run/beamOn 1000000

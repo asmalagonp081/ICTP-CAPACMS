@@ -1,0 +1,9 @@
+# TOPAS Version: 3.9
+# Parameter File: Poly_Al.txt
+# Results for scorer: ScorerConc
+# Filtered by: OnlyIncludeParticlesOfGeneration = "Primary"
+# Filtered by: OnlyIncludeParticlesWithKEAbove = 9.9 MeV
+# Filtered by: OnlyIncludeParticlesNamed = 1 "gamma"
+# Scored on surface: DetConc/ZMinusSurface
+# SurfaceCurrent ( /mm2 ) : Mean   Histories_with_Scorer_Active   Count_in_Bin   
+4.197222222222222e-05, 10000, 1511

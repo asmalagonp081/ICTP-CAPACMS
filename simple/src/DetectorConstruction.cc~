@@ -51,8 +51,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 
   //Definición del material del tubo del haz
   G4Material* boxmaterial = nist->FindOrBuildMaterial("G4_Pb");
-  //G4Material* boxmaterial2 = nist->FindOrBuildMaterial("G4_CONCRETE");
-  G4Material* boxmaterial2 = nist->FindOrBuildMaterial("G4_Galactic");
+  G4Material* boxmaterial2 = nist->FindOrBuildMaterial("G4_CONCRETE");
 
   
   // World ()
@@ -84,11 +83,10 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                       fCheckOverlaps);       // checking overlaps 
 
 
-  G4double boxHLX   = 1.0*cm;//0.25*m;
-  G4double boxHLY   = 1.0*cm;//0.25*m;
-  G4double boxHLZ   = 10.0*mm;//0.10*cm;
-  G4double box2HLZ  = 0.1*mm;//0.20*cm;
-  //G4double box3HLZ  = 0.1*mm;//0.20*cm;
+  G4double boxHLX   = 0.25*m;
+  G4double boxHLY   = 0.25*m;
+  G4double boxHLZ   = 0.10*cm;
+  G4double box2HLZ  = 0.20*cm;
   
   // Box volume
   G4Box* solidBox = new G4Box("Box", boxHLX, boxHLY, boxHLZ);
@@ -100,12 +98,6 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   G4LogicalVolume *logicBox2 = new G4LogicalVolume(solidBox2, boxmaterial2,"Box2");
   new G4PVPlacement(0, G4ThreeVector(0.0, 0.0, boxHLZ + box2HLZ), logicBox2, "Box2", logicWorld, false, 0, fCheckOverlaps); 
 
-  // Box volume3
-  //G4Box* solidBox3 = new G4Box("Box3", boxHLX, boxHLY, box3HLZ);
-  //G4LogicalVolume *logicBox3 = new G4LogicalVolume(solidBox3, boxmaterial3,"Box3");
-  //new G4PVPlacement(0, G4ThreeVector(0.0, 0.0, boxHLZ + box2HLZ + box3HLZ), logicBox3, "Box3", logicWorld, false, 0, fCheckOverlaps); 
-
-  
   //retorna objeto apuntador a la clase G4VPhysicalVolume
   return physWorld; 
 }

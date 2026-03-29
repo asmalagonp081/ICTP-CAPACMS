@@ -24,31 +24,42 @@
 // ********************************************************************
 //
 //
-/// \file B1/include/ActionInitialization.hh
-/// \brief Definition of the B1::ActionInitialization class
+/// \file B1/src/ActionInitialization.cc
+/// \brief Implementation of the B1::ActionInitialization class
 
-#ifndef ActionInitialization_h
-#define ActionInitialization_h 1
+#include "ActionInitialization.hh"
 
-#include "G4VUserActionInitialization.hh"
+//#include "EventAction.hh"
+#include "PrimaryGeneratorAction.hh"
+//#include "RunAction.hh"
+//#include "SteppingAction.hh"
 
 namespace simple
 {
 
-/// Action initialization class.
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-class ActionInitialization : public G4VUserActionInitialization
+void ActionInitialization::BuildForMaster() const
 {
-  public:
-    ActionInitialization() = default;
-    ~ActionInitialization() override = default;
-
-    void BuildForMaster() const override;
-    void Build() const override;
-};
-
-}  // namespace B1
+  //auto runAction = new RunAction;
+  //SetUserAction(runAction);
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-#endif
+void ActionInitialization::Build() const
+{
+  SetUserAction(new PrimaryGeneratorAction);
+
+  //auto runAction = new RunAction;
+  //SetUserAction(runAction);
+
+  //auto eventAction = new EventAction(runAction);
+  //SetUserAction(eventAction);
+
+  //SetUserAction(new SteppingAction(eventAction));
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+}  // namespace B1

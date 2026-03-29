@@ -1,4 +1,4 @@
-//
+///
 /// \file simple/src/RunAction.cc
 /// \brief Implementation of the RunAction class
 
